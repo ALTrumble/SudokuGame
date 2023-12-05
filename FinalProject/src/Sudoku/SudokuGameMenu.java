@@ -18,7 +18,7 @@ public class SudokuGameMenu extends JFrame {
         // Set up the main menu frame
         setTitle("Sudoku Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 700); // Increased height to accommodate the title label
+        setSize(800, 800); // Increased height to accommodate the title label
         setLocationRelativeTo(null);
         JPanel buttonPanel = new JPanel(); // Panel to hold buttons
         
@@ -121,8 +121,15 @@ public class SudokuGameMenu extends JFrame {
         easyButton.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		board.createBoard();
-        		//buttonPanel.add(board);
+        		board.setVisible(true);
+        		startButton.setVisible(false);
+            	statisticsButton.setVisible(false);
+            	exitButton.setVisible(false);
+            	easyButton.setVisible(false);
+            	mediumButton.setVisible(false);
+            	hardButton.setVisible(false);
+            	backButton.setVisible(false);
+            	titleLabel.setVisible(false);
         	}
         });
         
@@ -156,9 +163,10 @@ public class SudokuGameMenu extends JFrame {
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
         buttonPanel.add(backButton);
-        JFrame GamePanel = new JFrame(); 
-        GamePanel.add(board);
-        //add(GamePanel, BorderLayout.SOUTH);
+        
+        board.createBoard();
+        add(board, BorderLayout.CENTER);
+        board.setVisible(false);
         
         easyButton.setVisible(false);
         mediumButton.setVisible(false);
