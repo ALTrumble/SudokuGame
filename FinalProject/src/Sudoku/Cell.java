@@ -14,20 +14,27 @@ import javax.swing.border.MatteBorder;
 public class Cell extends JPanel implements ActionListener, KeyListener {
 	
 	Boolean selected = false;
+	Boolean solved = false;
 	
-	JLabel number = new JLabel("0", SwingConstants.CENTER);
+	int number;
+	int input;
+	
+	
+	JLabel numberLabel = new JLabel("", SwingConstants.CENTER);
 	//JButton button = new JButton();
 	
-	Cell(boolean top, boolean bottom, boolean right, boolean left) {
+	Cell(int solution, boolean top, boolean bottom, boolean right, boolean left) {
 		setSize(60, 60);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 		setBorder(setCustomBorder((top ? 2 : 1), (left ? 2 : 1), (bottom ? 2 : 1), (right ? 2 : 1)));
 		
-		number.setBounds(0, 0, 0, 0);
-		number.setFont(new Font("Serif", Font.PLAIN, 45));
-		add(number);
+		number = solution;
 		
+		numberLabel.setBounds(0, 0, 0, 0);
+		numberLabel.setFont(new Font("Serif", Font.PLAIN, 45));
+		updateNumberLabel(solution);
+		add(numberLabel);
 	}
 	
 	public Border setCustomBorder(int top, int left, int bottom, int right) {
@@ -38,6 +45,15 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		Border border = new CompoundBorder(gray, black);
 		
 		return border;
+	}
+	
+	public void updateNumberLabel(int num) {
+		
+		if (num == 0) {
+			numberLabel.setText("");
+		} else {
+			numberLabel.setText(Integer.toString(num));
+		}
 	}
 	
 	@Override
