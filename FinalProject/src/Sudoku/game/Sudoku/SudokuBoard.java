@@ -23,9 +23,9 @@ public class SudokuBoard extends JPanel {
 		solutionBoard = new int[boardSize][boardSize];
 		solvableBoard = new int[boardSize][boardSize];
 		
-		addCellsToBoard();
-		createSolvableBoard(difficulty);
 		
+		createSolvableBoard(difficulty);
+		addCellsToBoard();
 	}
 	
 	public void addCellsToBoard() {
@@ -185,4 +185,7 @@ public class SudokuBoard extends JPanel {
 		public int[][] getSolutionBoard() {return solutionBoard;}
 	
 }
+
+
+
 
