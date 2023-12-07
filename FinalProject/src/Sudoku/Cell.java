@@ -21,7 +21,7 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 	
 	
 	JLabel numberLabel = new JLabel("", SwingConstants.CENTER);
-	//JButton button = new JButton();
+	JButton button = new JButton();
 	
 	Cell(int solution, boolean top, boolean bottom, boolean right, boolean left) {
 		setSize(60, 60);
@@ -35,6 +35,10 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		numberLabel.setFont(new Font("Serif", Font.PLAIN, 45));
 		updateNumberLabel(solution);
 		add(numberLabel);
+		
+		button.setSize(new Dimension(60, 60));
+		button.addActionListener(this);
+		
 	}
 	
 	public Border setCustomBorder(int top, int left, int bottom, int right) {
@@ -58,16 +62,15 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		selected = !selected;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -79,6 +82,8 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 	
 	
