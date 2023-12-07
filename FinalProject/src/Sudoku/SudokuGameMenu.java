@@ -15,6 +15,9 @@ public class SudokuGameMenu extends JFrame {
         });
     }
     public SudokuGameMenu() {
+    	// creating the board
+    	 SudokuBoard board = new SudokuBoard(0);
+    	 
         // Set up the main menu frame
         setTitle("Sudoku Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +93,6 @@ public class SudokuGameMenu extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //showDifficultyMenu();
             	startButton.setVisible(true);
             	statisticsButton.setVisible(true);
             	exitButton.setVisible(true);
@@ -116,13 +118,13 @@ public class SudokuGameMenu extends JFrame {
             }
         });
         
-        SudokuBoard board = new SudokuBoard(0);
+       
         // Add action listeners to difficulty buttons
         easyButton.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
         		
-        		board.setVisible(true);
+        		board.createBoard(0);
         		startButton.setVisible(false);
             	statisticsButton.setVisible(false);
             	exitButton.setVisible(false);
@@ -139,7 +141,15 @@ public class SudokuGameMenu extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		// TODO: Add logic to start a game with easy difficulty
         		//JOptionPane.showMessageDialog(buttonPanel, "Starting medium game!");
-        		
+        		board.createBoard(1);
+        		startButton.setVisible(false);
+            	statisticsButton.setVisible(false);
+            	exitButton.setVisible(false);
+            	easyButton.setVisible(false);
+            	mediumButton.setVisible(false);
+            	hardButton.setVisible(false);
+            	backButton.setVisible(false);
+            	titleLabel.setVisible(false);
         	}
         });
         
@@ -148,7 +158,15 @@ public class SudokuGameMenu extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		// TODO: Add logic to start a game with easy difficulty
         		//JOptionPane.showMessageDialog(buttonPanel, "Starting hard game!");
-        		
+        		board.createBoard(2);
+        		startButton.setVisible(false);
+            	statisticsButton.setVisible(false);
+            	exitButton.setVisible(false);
+            	easyButton.setVisible(false);
+            	mediumButton.setVisible(false);
+            	hardButton.setVisible(false);
+            	backButton.setVisible(false);
+            	titleLabel.setVisible(false);
         	}
         });
 
@@ -157,6 +175,7 @@ public class SudokuGameMenu extends JFrame {
         //setLayout(null); // Use
         add(titleLabel, BorderLayout.NORTH); // Add title label to the top
  
+        //adding all of the buttons to the panel
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(startButton);
         buttonPanel.add(statisticsButton);
@@ -170,7 +189,7 @@ public class SudokuGameMenu extends JFrame {
         //add(GamePanel, BorderLayout.SOUTH);
         
         add(board, BorderLayout.CENTER);
-        board.setVisible(false);
+//        board.setVisible(false);
         
         easyButton.setVisible(false);
         mediumButton.setVisible(false);
@@ -180,3 +199,4 @@ public class SudokuGameMenu extends JFrame {
         add(buttonPanel, BorderLayout.CENTER); // Add button panel to the center
     }
 }
+
