@@ -121,8 +121,6 @@ public class SudokuGameMenu extends JFrame {
         easyButton.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		board.createBoard();
-        		//buttonPanel.add(board);
         	}
         });
         
@@ -156,16 +154,15 @@ public class SudokuGameMenu extends JFrame {
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
         buttonPanel.add(backButton);
-<<<<<<< Updated upstream
+
         JFrame GamePanel = new JFrame(); 
         GamePanel.add(board);
         //add(GamePanel, BorderLayout.SOUTH);
-=======
+
         
         board.addCellsToBoard();
         add(board, BorderLayout.CENTER);
         board.setVisible(false);
->>>>>>> Stashed changes
         
         easyButton.setVisible(false);
         mediumButton.setVisible(false);
