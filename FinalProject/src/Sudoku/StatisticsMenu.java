@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StatisticsBoard extends JFrame {
-	public StatisticsBoard() {
+public class StatisticsMenu extends JPanel {
+	public StatisticsMenu() {
 //		setTitle("Statistics Menu");
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setSize(600, 250); // Increased height to accommodate the title label
@@ -18,10 +18,11 @@ public class StatisticsBoard extends JFrame {
 //        titleLabel.setHorizontalAlignment(JLabel.CENTER); // Center the text
 //        
 		// Set up the statistics board frame
-        setTitle("Statistics Board");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose on close to avoid closing the entire application
-        setSize(300, 150);
-        setLocationRelativeTo(null);
+		setVisible(false);
+        
+        
+        setSize(727, 949);
+        
 
         // Create components for statistics (placeholders)
         JLabel gamesPlayedLabel = new JLabel("Games Played: 10");
@@ -36,3 +37,4 @@ public class StatisticsBoard extends JFrame {
         
 	}
 }
+

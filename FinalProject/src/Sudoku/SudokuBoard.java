@@ -1,7 +1,6 @@
 package Sudoku;
 
 import java.awt.GridLayout;
-
 import javax.swing.JPanel;
 
 public class SudokuBoard extends JPanel {
