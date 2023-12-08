@@ -12,7 +12,7 @@ public class SudokuBoard extends JPanel {
 	int boardSize = 9;
 	int rootBoardSize;
 	
-	SudokuBoard(int difficulty) {
+	SudokuBoard() {
 		
 		setSize(600, 600);
 		setLayout(new GridLayout(9, 9));

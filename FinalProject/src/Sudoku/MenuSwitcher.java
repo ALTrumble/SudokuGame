@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-public class MenuSwitcher implements EventListener, ActionListener {
+public class MenuSwitcher implements EventListener {
 	
 	MainMenu mainMenu = new MainMenu();
 	GameMenu gameMenu = new GameMenu();
@@ -24,6 +24,8 @@ public class MenuSwitcher implements EventListener, ActionListener {
         
         
         mainMenu.addEventListener(this);
+        difficultySelect.addEventListener(this);
+        gameMenu.addEventListener(this);
         
         frame.add(gameMenu);
         frame.add(mainMenu);
@@ -45,8 +47,10 @@ public class MenuSwitcher implements EventListener, ActionListener {
 		difficultySelect.setVisible(!difficultySelect.isVisible());
 	}
 	
-	public void toggleGame() {
+	public void toggleGame(int difficulty) {
+		toggleDifficultySelect();
 		gameMenu.setVisible(!gameMenu.isVisible());
+		gameMenu.launchGame(difficulty);
 	}
 	
 	public void toggleStats() {
@@ -59,10 +63,11 @@ public class MenuSwitcher implements EventListener, ActionListener {
 		
 		case "MainMenu":
 			toggleMain();
+			toggleDifficultySelect();
 			break;
 			
-		case "GameMenu":
-			toggleGame();
+		case "EasyGame":
+			toggleGame(0);
 			break;
 			
 		case "DifficultySelect":
@@ -75,10 +80,6 @@ public class MenuSwitcher implements EventListener, ActionListener {
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }

@@ -3,10 +3,13 @@ package Sudoku;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class DifficultyMenu extends JPanel implements ActionListener, EventListener{
+public class DifficultyMenu extends JPanel implements EventListener{
+	
+	private ArrayList<EventListener> listeners = new ArrayList<>();
 	
 	JButton easyButton = new JButton("Easy");
 	JButton mediumButton = new JButton("Medium");
@@ -38,21 +41,37 @@ public class DifficultyMenu extends JPanel implements ActionListener, EventListe
 	    backButton.setForeground(Color.white);
 	    backButton.setUI(new StyledButtonUI());
 		
-	    easyButton.addActionListener(this);
-	    mediumButton.addActionListener(this);
-	    hardButton.addActionListener(this);
-	    backButton.addActionListener(this);
+	    easyButton.addActionListener(e -> {
+	    	String info = "EasyGame";
+	    	notifyListeners(info);
+	    });
+	    
+	    //mediumButton.addActionListener(this);
+	    //hardButton.addActionListener(this);
+	    
+	    backButton.addActionListener(e -> {
+	    	String info = "MainMenu";
+	    	notifyListeners(info);
+	    });
+	    
+	    add(easyButton);
+	    add(mediumButton);
+	    add(hardButton);
+	    add(backButton);
+	    
 	    
 	}
 	
 	
-	
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void addEventListener(EventListener listener) {
+    	listeners.add(listener);
+    }
+    
+    public void notifyListeners(String info) {
+    	for (EventListener listener : listeners) {
+    		listener.EventOccured(info);
+    	}
+    }
 	
 	@Override
 	public void EventOccured(String details) {
@@ -60,6 +79,4 @@ public class DifficultyMenu extends JPanel implements ActionListener, EventListe
 		
 	}
 
-	
-		
 }

@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class MainMenu extends JPanel implements EventListener, ActionListener {
+public class MainMenu extends JPanel implements EventListener {
 	
 	private ArrayList<EventListener> listeners = new ArrayList<>();
 	
@@ -95,11 +95,6 @@ public class MainMenu extends JPanel implements EventListener, ActionListener {
     	}
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void EventOccured(String details) {
