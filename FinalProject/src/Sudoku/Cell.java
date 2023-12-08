@@ -31,7 +31,7 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		
 		number = solution;
 		
-		numberLabel.setBounds(0, 0, 0, 0);
+		numberLabel.setBounds(0, 0, 60, 60);
 		numberLabel.setFont(new Font("Serif", Font.PLAIN, 45));
 		updateNumberLabel(solution);
 		add(numberLabel);

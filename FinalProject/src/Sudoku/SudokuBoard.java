@@ -23,11 +23,14 @@ public class SudokuBoard extends JPanel {
 		solutionBoard = new int[boardSize][boardSize];
 		solvableBoard = new int[boardSize][boardSize];
 		
-		addCellsToBoard();
-		createSolvableBoard(difficulty);
+		
 		
 	}
-	
+	public void createBoard(int difficulty) {
+		
+		createSolvableBoard(difficulty);
+		addCellsToBoard();
+	}
 	public void addCellsToBoard() {
 		
 		for (int row = 0; row < 9; row++) {
@@ -68,8 +71,8 @@ public class SudokuBoard extends JPanel {
 					int row = currentCell / boardSize;
 					int col = currentCell % boardSize;
 					
-					if (col != 0) {
-						col -= 1;
+					if (col < 0) {
+						col = 9;
 					}
 					
 					if (solvableBoard[row][col] != 0) {
@@ -183,7 +186,4 @@ public class SudokuBoard extends JPanel {
 		
 		public int[][] getSolvableBoard() {return solvableBoard;}
 		public int[][] getSolutionBoard() {return solutionBoard;}
-	
 }
-
-
