@@ -49,6 +49,15 @@ public class SudokuBoard extends JPanel {
 		}
 	}
 	
+	public void checkCell(int row, int col) {
+        // Check if the cell at the specified row and column has the correct number
+        if (solvableBoard[row][col] != 0 && solvableBoard[row][col] == solutionBoard[row][col]) {
+            System.out.println("correct"); //replace with locking functions
+        } else {
+            System.out.println("wrong number"); //replace with code that counts towards wrong answers
+        }
+    }
+	
 	public int[][] createSolvableBoard(int difficulty) {
 		// 0 - easy, 1 - normal, 2 - hard
 				// 44 - easy, 50 - normal, 56 - hard

@@ -5,15 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 
-public class Cell extends JPanel implements ActionListener, KeyListener {
+public class Cell extends JPanel implements ActionListener, KeyListener, MouseListener {
 	
-	Boolean selected = false;
+	Boolean active = false;
 	Boolean solved = false;
 	
 	int number;
@@ -37,7 +39,24 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		add(numberLabel);
 		
 		button.setSize(new Dimension(60, 60));
+		button.setOpaque(false); // Make the button transparent
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
 		button.addActionListener(this);
+		add(button);
+		
+		
+        
+        //button.addActionListener(this);
+		
+		// Add mouse listener to detect clicks
+		/*
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                toggleActiveStatus();
+            }
+            */
 		
 	}
 	
@@ -60,9 +79,27 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 	
+	private void toggleActiveStatus() {
+        active = !active;
+        updateCellColors();
+    }
+
+    private void updateCellColors() {
+        if (active) {
+            setBackground(new Color(173, 216, 230)); // Set a background color to indicate active status
+        } else {
+            setBackground(new Color(235, 235, 235)); // Reset the background color when deactivating
+        }
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		selected = !selected;
+		toggleActiveStatus();
 	}
 
 	@Override
@@ -79,6 +116,36 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
