@@ -8,6 +8,7 @@ public class SudokuBoard extends JPanel {
 	int[] solutionBoard[];
 	int[] solvableBoard[];
 	
+	int mistakes = 0;
 	
 	int boardSize = 9;
 	int rootBoardSize;
@@ -41,12 +42,24 @@ public class SudokuBoard extends JPanel {
 				boolean isTopmost = (row % 3 == 0);
 				boolean isBottom = (row == 8) || (row == 2) || (row == 5);
 				
-				Cell c = new Cell(solutionBoard[row][col], isTopmost, isBottom, isRightmost, isLeftmost);
+				Cell c = new Cell(this, solutionBoard[row][col], isTopmost, isBottom, isRightmost, isLeftmost);
 				
 				add(c);
 				
 			}
 		}
+	}
+	
+	public int solutionAt(int row, int col) {
+		return solutionBoard[row][col];
+	}
+	
+	public void modifySolvableBoardAt(int row, int col, int num) {
+		solvableBoard[row][col] = num;
+	}
+	
+	public int getMistakes() {
+		return mistakes;
 	}
 	
 	public void checkCell(int row, int col) {
@@ -55,11 +68,12 @@ public class SudokuBoard extends JPanel {
             System.out.println("correct"); //replace with locking functions
         } else {
             System.out.println("wrong number"); //replace with code that counts towards wrong answers
+            mistakes++;
         }
     }
 	
 	public int[][] createSolvableBoard(int difficulty) {
-		// 0 - easy, 1 - normal, 2 - hard
+				// 0 - easy, 1 - normal, 2 - hard
 				// 44 - easy, 50 - normal, 56 - hard
 				int removals = 44 + (difficulty * 6);
 				

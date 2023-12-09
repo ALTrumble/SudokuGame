@@ -13,25 +13,35 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 
-public class Cell extends JPanel implements ActionListener, KeyListener, MouseListener {
+public class Cell extends JPanel implements ActionListener, KeyListener {
 	
 	Boolean active = false;
 	Boolean solved = false;
 	
+	private static SudokuBoard board;
+	private static Cell currentlySelectedCell = null;
+	
 	int number;
 	int input;
 	
+	int cellRow;
+	int cellCol;
 	
 	JLabel numberLabel = new JLabel("", SwingConstants.CENTER);
 	JButton button = new JButton();
 	
-	Cell(int solution, boolean top, boolean bottom, boolean right, boolean left) {
+	Cell(SudokuBoard board, int solution, boolean top, boolean bottom, boolean right, boolean left) {
 		setSize(60, 60);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 		setBorder(setCustomBorder((top ? 2 : 1), (left ? 2 : 1), (bottom ? 2 : 1), (right ? 2 : 1)));
 		
+		if (solution != 0) {
+			solved = true;
+		} 
 		number = solution;
+		
+		Cell.board = board; 
 		
 		numberLabel.setBounds(0, 0, 60, 60);
 		numberLabel.setFont(new Font("Serif", Font.PLAIN, 45));
@@ -43,20 +53,8 @@ public class Cell extends JPanel implements ActionListener, KeyListener, MouseLi
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
 		button.addActionListener(this);
+		button.addKeyListener(this);
 		add(button);
-		
-		
-        
-        //button.addActionListener(this);
-		
-		// Add mouse listener to detect clicks
-		/*
-        button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                toggleActiveStatus();
-            }
-            */
 		
 	}
 	
@@ -79,8 +77,22 @@ public class Cell extends JPanel implements ActionListener, KeyListener, MouseLi
 		}
 	}
 	
+	public void deactivate() {
+        active = false;
+        updateCellColors();
+    }
+	
 	private void toggleActiveStatus() {
         active = !active;
+        if (active) {
+            // If a cell is already selected, deselect it
+            if (currentlySelectedCell != null) {
+                currentlySelectedCell.deactivate();
+            }
+            currentlySelectedCell = this; // Set the currently selected cell
+        } else {
+            currentlySelectedCell = null; // Deselect the cell
+        }
         updateCellColors();
     }
 
@@ -91,7 +103,38 @@ public class Cell extends JPanel implements ActionListener, KeyListener, MouseLi
             setBackground(new Color(235, 235, 235)); // Reset the background color when deactivating
         }
     }
+    
+ // Inside the Cell class
+    public void setNumber(int num) {
+        if (!solved && num != 0) { // Allow setting numbers only for unsolved cells
+            int row = getRow();
+            int col = getCol();
+            
+            if (num == board.solutionAt(row, col)) {
+                // If the entered number matches the solution, mark the cell as solved
+                solved = true;
+                updateCellColors();
+                currentlySelectedCell = null; // Deselect the cell
+                System.out.println("Cell Solved!");
+            } else {
+                // If the entered number is incorrect, handle it
+                System.out.println("Wrong Number!");
+            }
 
+            number = num;
+            board.modifySolvableBoardAt(row, col, num);
+            updateNumberLabel(num);
+        }
+    }
+    
+    public int getRow() {
+    	return cellRow;
+    }
+    
+    public int getCol() {
+    	return cellCol;
+    }
+    
     public Boolean isActive() {
         return active;
     }
@@ -99,14 +142,16 @@ public class Cell extends JPanel implements ActionListener, KeyListener, MouseLi
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		toggleActiveStatus();
+		if (!solved) {toggleActiveStatus();}
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
-		
-	}
+    public void keyTyped(KeyEvent e) {
+        if (active && Character.isDigit(e.getKeyChar())) {
+            int num = Character.getNumericValue(e.getKeyChar());
+            setNumber(num);
+        }
+    }
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -119,40 +164,5 @@ public class Cell extends JPanel implements ActionListener, KeyListener, MouseLi
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	
-	
-	
 	
 }
