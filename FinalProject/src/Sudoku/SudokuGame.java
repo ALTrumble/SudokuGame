@@ -8,6 +8,7 @@ public class SudokuGame {
             @Override
             public void run() {
                 new MenuSwitcher().display();
+                
             }
         });
     }

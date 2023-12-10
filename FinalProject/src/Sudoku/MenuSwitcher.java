@@ -1,5 +1,8 @@
 package Sudoku;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import javax.swing.JFrame;
 
 public class MenuSwitcher implements EventListener {
@@ -34,6 +37,11 @@ public class MenuSwitcher implements EventListener {
 	public void display() {
 		frame.setVisible(true);
 		toggleMain();
+		
+		System.out.println(gameMenu.getBoard().getSolutionBoard());
+		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
+		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
+		
 	}
 	
 	public void toggleMain() {
@@ -48,6 +56,11 @@ public class MenuSwitcher implements EventListener {
 		toggleDifficultySelect();
 		gameMenu.setVisible(!gameMenu.isVisible());
 		gameMenu.launchGame(difficulty);
+		
+		System.out.println("SOLUTION");
+		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
+		System.out.println("sova");
+		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
 	}
 	
 	public void toggleStats() {

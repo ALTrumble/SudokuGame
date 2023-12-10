@@ -1,6 +1,5 @@
 package Sudoku;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -26,7 +25,10 @@ public class GameMenu extends JPanel implements EventListener {
 		validate();
 		repaint();
 	}
-
+	
+	public SudokuBoard getBoard() {
+		return board;
+	}
 	
 	public void addEventListener(EventListener listener) {
     	listeners.add(listener);
