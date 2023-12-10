@@ -38,9 +38,6 @@ public class MenuSwitcher implements EventListener {
 		frame.setVisible(true);
 		toggleMain();
 		
-		System.out.println(gameMenu.getBoard().getSolutionBoard());
-		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
-		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
 		
 	}
 	
@@ -57,10 +54,7 @@ public class MenuSwitcher implements EventListener {
 		gameMenu.setVisible(!gameMenu.isVisible());
 		gameMenu.launchGame(difficulty);
 		
-		System.out.println("SOLUTION");
-		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
-		System.out.println("sova");
-		Arrays.stream(gameMenu.getBoard().getSolutionBoard()).map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" "))).forEach(System.out::println);
+		
 	}
 	
 	public void toggleStats() {

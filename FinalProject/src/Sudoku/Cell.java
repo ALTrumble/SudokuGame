@@ -30,22 +30,24 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 	JLabel numberLabel = new JLabel("", SwingConstants.CENTER);
 	JButton button = new JButton();
 	
-	Cell(SudokuBoard board, int solution, boolean top, boolean bottom, boolean right, boolean left) {
+	Cell(int displayNum, int solution, boolean top, boolean bottom, boolean right, boolean left) {
 		setSize(60, 60);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 		setBorder(setCustomBorder((top ? 2 : 1), (left ? 2 : 1), (bottom ? 2 : 1), (right ? 2 : 1)));
 		
-		if (solution != 0) {
+		
+		
+		if (displayNum != 0) {
 			solved = true;
 		} 
 		number = solution;
 		
-		Cell.board = board; 
+		//Cell.board = board; 
 		
 		numberLabel.setBounds(0, 0, 60, 60);
 		numberLabel.setFont(new Font("Serif", Font.PLAIN, 45));
-		updateNumberLabel(solution);
+		updateNumberLabel(displayNum);
 		add(numberLabel);
 		
 		button.setSize(new Dimension(60, 60));
@@ -107,10 +109,10 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
  // Inside the Cell class
     public void setNumber(int num) {
         if (!solved && num != 0) { // Allow setting numbers only for unsolved cells
-            int row = getRow();
-            int col = getCol();
+            //int row = getRow();
+            //int col = getCol();
             
-            if (num == board.solutionAt(row, col)) {
+            if (num == number) {
                 // If the entered number matches the solution, mark the cell as solved
                 solved = true;
                 updateCellColors();
@@ -121,8 +123,8 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
                 System.out.println("Wrong Number!");
             }
 
-            number = num;
-            board.modifySolvableBoardAt(row, col, num);
+            //input = num;
+            //board.modifySolvableBoardAt(row, col, num);
             updateNumberLabel(num);
         }
     }
