@@ -4,37 +4,57 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class StatisticsMenu extends JPanel {
+	
+	JLabel titleLabel = new JLabel("Statistics Menu");
+	private ArrayList<EventListener> listeners = new ArrayList<>();
+	
 	public StatisticsMenu() {
-//		setTitle("Statistics Menu");
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setSize(600, 250); // Increased height to accommodate the title label
-//        setLocationRelativeTo(null);
-//        
-//        // Create title label
-//        JLabel titleLabel = new JLabel("Statisics Menu");
-//        titleLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Set font and size
-//        titleLabel.setHorizontalAlignment(JLabel.CENTER); // Center the text
-//        
-		// Set up the statistics board frame
 		setVisible(false);
+		setSize(727, 949);
+		
+		titleLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Set font and size
+        titleLabel.setHorizontalAlignment(JLabel.CENTER); // Center the text
+		
         
+        // Set up layout
+        setLayout(new BorderLayout()); // Use BorderLayout for better control of component placement
         
-        setSize(727, 949);
-        
+        add(titleLabel, BorderLayout.NORTH);
+	}
+	public void readingTheFile(String StatFile) {
+		try {
+		      File myObj = new File("StatsMenu.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        System.out.println(data);
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
 
-        // Create components for statistics (placeholders)
-        JLabel gamesPlayedLabel = new JLabel("Games Played: 10");
-        JLabel gamesWonLabel = new JLabel("Games Won: 5");
-        JLabel winPercentageLabel = new JLabel("Win Percentage: 50%");
-
-        // Set up layout for statistics board
-        setLayout(new GridLayout(3, 1));
-        add(gamesPlayedLabel);
-        add(gamesWonLabel);
-        add(winPercentageLabel);
-        
+	}
+	public void addEventListener(EventListener listener) {
+    	listeners.add(listener);
+    }
+    
+    public void notifyListeners(String info) {
+    	for (EventListener listener : listeners) {
+    		listener.EventOccured(info);
+    	}
+    }
+	
+	public void EventOccured(String details) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

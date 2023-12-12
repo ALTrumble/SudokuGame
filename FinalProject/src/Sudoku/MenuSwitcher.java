@@ -28,6 +28,7 @@ public class MenuSwitcher implements EventListener {
         difficultySelect.addEventListener(this);
         gameMenu.addEventListener(this);
         endGamePage.addEventListener(this);
+        statsPage.addEventListener(this);
         
         frame.add(gameMenu);
         frame.add(mainMenu);
@@ -68,7 +69,7 @@ public class MenuSwitcher implements EventListener {
 	public void toggleStats() {
 		statsPage.setVisible(!statsPage.isVisible());
 	}
-
+	
 	@Override
 	public void EventOccured(String details) {
 		switch(details) {
@@ -78,7 +79,7 @@ public class MenuSwitcher implements EventListener {
 			toggleDifficultySelect();
 			toggleGameEnd(false);
 			break;
-			
+		
 		case "EasyGame":
 			toggleDifficultySelect();
 			startGame(0);
@@ -106,7 +107,12 @@ public class MenuSwitcher implements EventListener {
 			
 		case "GameWon":
 			endGame();
-			toggleGameEnd(true);
+			toggleGameEnd(true);	
+		
+		case "StatisticsMenu":
+			toggleStats();
+			break;
+			
 		default:
 				// die
 		}

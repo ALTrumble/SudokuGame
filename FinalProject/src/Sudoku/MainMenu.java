@@ -52,14 +52,18 @@ public class MainMenu extends JPanel implements EventListener {
         	notifyListeners(info);
         });
         
-
-        statisticsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add logic to show statistics
-                JOptionPane.showMessageDialog(MainMenu.this, "Statistics not implemented yet!");
-            }
+        statisticsButton.addActionListener(e -> {
+        	String info = "StatisticsMenu";
+        	notifyListeners(info);
         });
+        
+//        statisticsButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // Add logic to show statistics
+//                JOptionPane.showMessageDialog(MainMenu.this, "Statistics not implemented yet!");
+//            }
+//        });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
