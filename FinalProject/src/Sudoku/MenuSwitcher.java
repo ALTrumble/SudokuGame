@@ -11,6 +11,7 @@ public class MenuSwitcher implements EventListener {
 	GameMenu gameMenu = new GameMenu();
 	DifficultyMenu difficultySelect = new DifficultyMenu();
 	StatisticsMenu statsPage = new StatisticsMenu();
+	GameOverMenu endGamePage = new GameOverMenu();
 	
 	private JFrame frame;
 	
@@ -26,12 +27,13 @@ public class MenuSwitcher implements EventListener {
         mainMenu.addEventListener(this);
         difficultySelect.addEventListener(this);
         gameMenu.addEventListener(this);
+        endGamePage.addEventListener(this);
         
         frame.add(gameMenu);
         frame.add(mainMenu);
         frame.add(difficultySelect);
         frame.add(statsPage);
-        
+        frame.add(endGamePage);        
 	}
 	
 	public void display() {
@@ -49,12 +51,19 @@ public class MenuSwitcher implements EventListener {
 		difficultySelect.setVisible(!difficultySelect.isVisible());
 	}
 	
-	public void toggleGame(int difficulty) {
-		toggleDifficultySelect();
+	public void startGame(int difficulty) {
 		gameMenu.setVisible(!gameMenu.isVisible());
-		gameMenu.launchGame(difficulty);
-		
-		
+		gameMenu.launchGame(difficulty);		
+	}
+	
+	public void endGame() {
+		gameMenu.setVisible(!gameMenu.isVisible());
+	}
+	
+	public void toggleGameEnd(boolean win) {
+		endGame();
+		endGamePage.setVisible(!endGamePage.isVisible());
+		endGamePage.toggleWinLose(win);
 	}
 	
 	public void toggleStats() {
@@ -71,13 +80,23 @@ public class MenuSwitcher implements EventListener {
 			break;
 			
 		case "EasyGame":
-			toggleGame(0);
+			toggleDifficultySelect();
+			startGame(0);
 			break;
 			
 		case "DifficultySelect":
 			toggleDifficultySelect();
 			toggleMain();
 			break;
+			
+		case "GameLost":
+			endGame();
+			toggleGameEnd(false);
+			break;
+			
+		case "GameWon":
+			endGame();
+			toggleGameEnd(true);
 		default:
 				// die
 		}
