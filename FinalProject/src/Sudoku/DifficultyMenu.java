@@ -9,15 +9,22 @@ public class DifficultyMenu extends JPanel implements EventListener{
 	
 	private ArrayList<EventListener> listeners = new ArrayList<>();
 	
+	JLabel titleLabel = new JLabel("Select Difficulty");
+	
 	JButton easyButton = new JButton("Easy");
 	JButton mediumButton = new JButton("Medium");
     JButton hardButton = new JButton("Hard");
     JButton backButton = new JButton("Back");
     
+    JPanel buttonPanel = new JPanel();
+    
 	DifficultyMenu() {
 		setVisible(false);
 		setSize(727, 949);
-		setBackground(Color.BLUE);
+		
+		titleLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Set font and size
+        titleLabel.setHorizontalAlignment(JLabel.CENTER); // Center the text
+		add(titleLabel, BorderLayout.NORTH);
 		
 		easyButton.setFont(new Font("Calibri", Font.PLAIN, 14));
 	    easyButton.setBackground(new Color(0x2dce98));
@@ -52,10 +59,18 @@ public class DifficultyMenu extends JPanel implements EventListener{
 	    	notifyListeners(info);
 	    });
 	    
-	    add(easyButton);
-	    add(mediumButton);
-	    add(hardButton);
-	    add(backButton);
+	    buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.add(easyButton);
+        buttonPanel.add(mediumButton);
+        buttonPanel.add(hardButton);
+        buttonPanel.add(backButton);
+        
+        add(buttonPanel);
+	    
+	    //add(easyButton);
+	    //add(mediumButton);
+	    //add(hardButton);
+	    //add(backButton);
 	    
 	    
 	}

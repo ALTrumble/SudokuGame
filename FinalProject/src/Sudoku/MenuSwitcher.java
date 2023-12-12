@@ -61,7 +61,6 @@ public class MenuSwitcher implements EventListener {
 	}
 	
 	public void toggleGameEnd(boolean win) {
-		endGame();
 		endGamePage.setVisible(!endGamePage.isVisible());
 		endGamePage.toggleWinLose(win);
 	}
@@ -77,6 +76,7 @@ public class MenuSwitcher implements EventListener {
 		case "MainMenu":
 			toggleMain();
 			toggleDifficultySelect();
+			toggleGameEnd(false);
 			break;
 			
 		case "EasyGame":

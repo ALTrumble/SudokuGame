@@ -7,18 +7,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 
-public class Cell extends JPanel implements ActionListener, KeyListener {
+public class Cell extends JPanel implements ActionListener, KeyListener, EventListener {
 	
 	Boolean active = false;
 	Boolean solved = false;
 	
-	private static SudokuBoard board;
+	private ArrayList<EventListener> listeners = new ArrayList<>();
 	private static Cell currentlySelectedCell = null;
 	
 	int number;
@@ -42,11 +43,9 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 			solved = true;
 		} 
 		number = solution;
-		
-		//Cell.board = board; 
-		
+				
 		numberLabel.setBounds(0, 0, 60, 60);
-		numberLabel.setFont(new Font("Serif", Font.PLAIN, 45));
+		numberLabel.setFont(new Font("Arial", Font.PLAIN, 45));
 		updateNumberLabel(displayNum);
 		add(numberLabel);
 		
@@ -74,6 +73,7 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		
 		if (num == 0) {
 			numberLabel.setText("");
+			//numberLabel.setForeground(Color.BLACK);
 		} else {
 			numberLabel.setText(Integer.toString(num));
 		}
@@ -106,25 +106,25 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
         }
     }
     
+    
+    
  // Inside the Cell class
     public void setNumber(int num) {
         if (!solved && num != 0) { // Allow setting numbers only for unsolved cells
-            //int row = getRow();
-            //int col = getCol();
-            
+                   
             if (num == number) {
                 // If the entered number matches the solution, mark the cell as solved
                 solved = true;
+                active = false;
+                numberLabel.setForeground(Color.BLUE);
                 updateCellColors();
                 currentlySelectedCell = null; // Deselect the cell
-                System.out.println("Cell Solved!");
             } else {
                 // If the entered number is incorrect, handle it
-                System.out.println("Wrong Number!");
+            	numberLabel.setForeground(Color.RED);
+            	notifyListeners("Mistake"); // let board know a mistake was made
             }
-
-            //input = num;
-            //board.modifySolvableBoardAt(row, col, num);
+            
             updateNumberLabel(num);
         }
     }
@@ -155,6 +155,22 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
         }
     }
 	
+	public void addEventListener(EventListener listener) {
+    	listeners.add(listener);
+    }
+    
+    public void notifyListeners(String info) {
+    	for (EventListener listener : listeners) {
+    		listener.EventOccured(info);
+    	}
+    }
+	
+	@Override
+	public void EventOccured(String details) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -166,5 +182,7 @@ public class Cell extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 }

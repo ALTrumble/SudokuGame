@@ -7,24 +7,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class SudokuBoard extends JPanel {
+public class SudokuBoard extends JPanel implements EventListener {
+	
+	ArrayList<EventListener> listeners = new ArrayList<>();
 	
 	int[] solutionBoard[];
 	int[] solvableBoard[];
 	
-	int mistakes = 0;
+	private int mistakes = 0;
+	private static int cellsUnsolved = 0;
 	
 	private static final Random random = new Random();
-	
 	private static final int SIZE = 9;
-	int rootBoardSize;
 	
 	SudokuBoard() {
 		
 		setSize(600, 600);
 		setLayout(new GridLayout(9, 9));
-		
-		rootBoardSize = (int) Math.sqrt(SIZE);
 		
 		solutionBoard = new int[SIZE][SIZE];
 		solvableBoard = new int[SIZE][SIZE];
@@ -44,6 +43,7 @@ public class SudokuBoard extends JPanel {
 		addCellsToBoard();
 		
 	}
+	
 	public void addCellsToBoard() {
 		
 		for (int row = 0; row < 9; row++) {
@@ -56,7 +56,7 @@ public class SudokuBoard extends JPanel {
 				boolean isBottom = (row == 8) || (row == 2) || (row == 5);
 				
 				Cell c = new Cell(solvableBoard[row][col], solutionBoard[row][col], isTopmost, isBottom, isRightmost, isLeftmost);
-				
+				c.addEventListener(this);
 				add(c);
 				
 			}
@@ -74,6 +74,16 @@ public class SudokuBoard extends JPanel {
 	public int getMistakes() {
 		return mistakes;
 	}
+	
+	public void addEventListener(EventListener listener) {
+    	listeners.add(listener);
+    }
+    
+    public void notifyListeners(String info) {
+    	for (EventListener listener : listeners) {
+    		listener.EventOccured(info);
+    	}
+    }
 	
 	private static void uniqueFirstRow(int[][] board) {
 		ArrayList<Integer> firstRow = new ArrayList<>();
@@ -132,7 +142,8 @@ public class SudokuBoard extends JPanel {
 
     private static int[][] createPuzzle(int[][] board, int difficulty) {
         int cellsToRemove = 44 + (difficulty * 6);
-
+        cellsUnsolved = cellsToRemove;        
+        
         while (cellsToRemove > 0) {
             int row = random.nextInt(SIZE);
             int col = random.nextInt(SIZE);
@@ -146,16 +157,6 @@ public class SudokuBoard extends JPanel {
         return board;
     }
 
-    /*private static void printBoard(int[][] board) {
-        for (int[] row : board) {
-            for (int value : row) {
-                System.out.print(value + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }*/
-
     private static int[][] copyBoard(int[][] board) {
         int[][] newBoard = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++) {
@@ -163,5 +164,22 @@ public class SudokuBoard extends JPanel {
         }
         return newBoard;
     }
+
+	@Override
+	public void EventOccured(String details) {
+		if (details == "Mistake") {
+			mistakes++;
+			notifyListeners("Mistake");
+			if (mistakes >= 3) {
+				notifyListeners("GameLost");
+			}		
+		} else if (details == "CellSolved") {
+			cellsUnsolved--;
+			if (cellsUnsolved == 0) {
+				notifyListeners("GameWon");
+			}
+		}
+		
+	}
 	
 }
