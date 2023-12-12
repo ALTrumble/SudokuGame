@@ -84,6 +84,16 @@ public class MenuSwitcher implements EventListener {
 			startGame(0);
 			break;
 			
+		case "MediumGame":
+			toggleDifficultySelect();
+			startGame(1);
+			break;
+		
+		case "HardGame":
+			toggleDifficultySelect();
+			startGame(2);
+			break;
+			
 		case "DifficultySelect":
 			toggleDifficultySelect();
 			toggleMain();

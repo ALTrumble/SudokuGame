@@ -19,8 +19,6 @@ public class StatisticsMenu extends JPanel {
 //        
 		// Set up the statistics board frame
 		setVisible(false);
-        
-        
         setSize(727, 949);
         
 

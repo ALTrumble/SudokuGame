@@ -51,6 +51,16 @@ public class DifficultyMenu extends JPanel implements EventListener{
 	    	notifyListeners(info);
 	    });
 	    
+	    mediumButton.addActionListener(e -> {
+	    	String info = "MediumGame";
+	    	notifyListeners(info);
+	    });
+	    
+	    hardButton.addActionListener(e -> {
+	    	String info = "HardGame";
+	    	notifyListeners(info);
+	    });
+	    
 	    //mediumButton.addActionListener(this);
 	    //hardButton.addActionListener(this);
 	    
