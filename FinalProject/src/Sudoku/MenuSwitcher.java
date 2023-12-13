@@ -7,7 +7,6 @@ public class MenuSwitcher implements EventListener {
 	MainMenu mainMenu = new MainMenu();
 	GameMenu gameMenu = new GameMenu();
 	DifficultyMenu difficultySelect = new DifficultyMenu();
-	StatisticsMenu statsPage = new StatisticsMenu();
 	GameOverMenu endGamePage = new GameOverMenu();
 	
 	private JFrame frame;
@@ -25,12 +24,10 @@ public class MenuSwitcher implements EventListener {
         difficultySelect.addEventListener(this);
         gameMenu.addEventListener(this);
         endGamePage.addEventListener(this);
-        statsPage.addEventListener(this);
         
         frame.add(gameMenu);
         frame.add(mainMenu);
         frame.add(difficultySelect);
-        frame.add(statsPage);
         frame.add(endGamePage);        
 	}
 	
@@ -54,7 +51,6 @@ public class MenuSwitcher implements EventListener {
 			mainMenu.setVisible(true);
 			difficultySelect.setVisible(false);
 			endGamePage.setVisible(false);
-			statsPage.setVisible(false);
 			break;
 		
 		case "EasyGame":
@@ -87,11 +83,6 @@ public class MenuSwitcher implements EventListener {
 			gameMenu.setVisible(false);
 			endGamePage.setVisible(true);
 			endGamePage.toggleWinLose(true, gameMenu.getStats(), gameMenu.getElapsedTime());	
-			break;
-			
-		case "StatisticsMenu":
-			statsPage.setVisible(true);
-			mainMenu.setVisible(false);
 			break;
 			
 		default:

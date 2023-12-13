@@ -11,7 +11,6 @@ public class MainMenu extends JPanel implements EventListener {
 	private ArrayList<EventListener> listeners = new ArrayList<>();
 	
 	JButton exitButton = new JButton("Exit");
-	JButton statisticsButton = new JButton("Statistics");
 	JButton startButton = new JButton("Start Game");
 	
 	JPanel buttonPanel = new JPanel();
@@ -33,13 +32,6 @@ public class MainMenu extends JPanel implements EventListener {
         startButton.setForeground(Color.white);
         startButton.setUI(new StyledButtonUI());
         
-        
-        statisticsButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-        statisticsButton.setBackground(new Color(0x2dce98));
-        statisticsButton.setForeground(Color.white);
-        statisticsButton.setUI(new StyledButtonUI());
-        
-        
         exitButton.setFont(new Font("Calibri", Font.PLAIN, 14));
         exitButton.setBackground(new Color(0x2dce98));
         exitButton.setForeground(Color.white);
@@ -50,18 +42,6 @@ public class MainMenu extends JPanel implements EventListener {
         startButton.addActionListener(e -> {
         	notifyListeners("DifficultySelect");
         });
-        
-        statisticsButton.addActionListener(e -> {
-        	notifyListeners("StatisticsMenu");
-        });
-        
-//        statisticsButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // Add logic to show statistics
-//                JOptionPane.showMessageDialog(MainMenu.this, "Statistics not implemented yet!");
-//            }
-//        });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -78,7 +58,6 @@ public class MainMenu extends JPanel implements EventListener {
         //adding all of the buttons to the panel
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(startButton);
-        buttonPanel.add(statisticsButton);
         buttonPanel.add(exitButton);
         
         add(buttonPanel);
