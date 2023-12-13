@@ -4,18 +4,19 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 public class SudokuBoard extends JPanel implements EventListener {
 	
 	ArrayList<EventListener> listeners = new ArrayList<>();
+	ArrayList<Cell> cells = new ArrayList<>();
 	
 	int[] solutionBoard[];
 	int[] solvableBoard[];
 	
 	private int mistakes = 0;
-	private static int cellsUnsolved = 0;
 	
 	private static final Random random = new Random();
 	private static final int SIZE = 9;
@@ -25,27 +26,31 @@ public class SudokuBoard extends JPanel implements EventListener {
 		setSize(600, 600);
 		setLayout(new GridLayout(9, 9));
 		
-		solutionBoard = new int[SIZE][SIZE];
-		solvableBoard = new int[SIZE][SIZE];
+		//solutionBoard = new int[SIZE][SIZE];
+		//solvableBoard = new int[SIZE][SIZE];
 		
 	}
 	
 	public void createBoard(int difficulty) {
 		
-		uniqueFirstRow(solutionBoard);
+		cells.clear();
 		
-		if (fillBoard(solutionBoard, 0, 0)) {
-			solvableBoard = createPuzzle(copyBoard(solutionBoard), difficulty);
-		} else {
-			// oops
-		}
+		removeAll();
+		revalidate();
+		
+		solutionBoard = new int[SIZE][SIZE];
+		solvableBoard = new int[SIZE][SIZE];
+		
+		uniqueFirstRow(solutionBoard);
+		fillBoard(solutionBoard, 0, 0);
+		solvableBoard = createPuzzle(copyBoard(solutionBoard), difficulty);
+		
 		
 		addCellsToBoard();
 		
 	}
 	
 	public void addCellsToBoard() {
-		
 		for (int row = 0; row < 9; row++) {
 			for (int col = 0; col < 9; col++) {
 				
@@ -57,6 +62,7 @@ public class SudokuBoard extends JPanel implements EventListener {
 				
 				Cell c = new Cell(solvableBoard[row][col], solutionBoard[row][col], isTopmost, isBottom, isRightmost, isLeftmost);
 				c.addEventListener(this);
+				cells.add(c);
 				add(c);
 				
 			}
@@ -142,7 +148,6 @@ public class SudokuBoard extends JPanel implements EventListener {
 
     private static int[][] createPuzzle(int[][] board, int difficulty) {
         int cellsToRemove = 44 + (difficulty * 6);
-        cellsUnsolved = cellsToRemove;        
         
         while (cellsToRemove > 0) {
             int row = random.nextInt(SIZE);
@@ -174,8 +179,8 @@ public class SudokuBoard extends JPanel implements EventListener {
 				notifyListeners("GameLost");
 			}		
 		} else if (details == "CellSolved") {
-			cellsUnsolved--;
-			if (cellsUnsolved == 0) {
+			boolean boardSolved = cells.stream().allMatch(Cell::isSolved);
+			if (boardSolved) {
 				notifyListeners("GameWon");
 			}
 		}

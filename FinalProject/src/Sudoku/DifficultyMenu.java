@@ -47,23 +47,19 @@ public class DifficultyMenu extends JPanel implements EventListener{
 	    backButton.setUI(new StyledButtonUI());
 		
 	    easyButton.addActionListener(e -> {
-	    	String info = "EasyGame";
-	    	notifyListeners(info);
+	    	notifyListeners("EasyGame");
 	    });
 	    
 	    mediumButton.addActionListener(e -> {
-            String info = "MediumGame";
-            notifyListeners(info);
+            notifyListeners("MediumGame");
         });
 
         hardButton.addActionListener(e -> {
-            String info = "HardGame";
-            notifyListeners(info);
+            notifyListeners("HardGame");
         });
 	    
 	    backButton.addActionListener(e -> {
-	    	String info = "MainMenu";
-	    	notifyListeners(info);
+	    	notifyListeners("MainMenu");
 	    });
 	    
 	    buttonPanel.setLayout(new FlowLayout());
@@ -72,13 +68,7 @@ public class DifficultyMenu extends JPanel implements EventListener{
         buttonPanel.add(hardButton);
         buttonPanel.add(backButton);
         
-        add(buttonPanel);
-	    
-	    //add(easyButton);
-	    //add(mediumButton);
-	    //add(hardButton);
-	    //add(backButton);
-	    
+        add(buttonPanel);  
 	    
 	}
 	

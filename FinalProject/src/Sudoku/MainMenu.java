@@ -48,13 +48,11 @@ public class MainMenu extends JPanel implements EventListener {
         
         // Add action listeners to buttons
         startButton.addActionListener(e -> {
-        	String info = "DifficultySelect";
-        	notifyListeners(info);
+        	notifyListeners("DifficultySelect");
         });
         
         statisticsButton.addActionListener(e -> {
-        	String info = "StatisticsMenu";
-        	notifyListeners(info);
+        	notifyListeners("StatisticsMenu");
         });
         
 //        statisticsButton.addActionListener(new ActionListener() {
@@ -75,7 +73,6 @@ public class MainMenu extends JPanel implements EventListener {
 
         // Set up layout
         setLayout(new BorderLayout()); // Use BorderLayout for better control of component placement
-        //setLayout(null); // Use
         add(titleLabel, BorderLayout.NORTH); // Add title label to the top
  
         //adding all of the buttons to the panel

@@ -2,8 +2,6 @@ package Sudoku;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,8 +9,9 @@ import java.util.Scanner;
 
 public class StatisticsMenu extends JPanel {
 	
-	JLabel titleLabel = new JLabel("Statistics Menu");
 	private ArrayList<EventListener> listeners = new ArrayList<>();
+	
+	JLabel titleLabel = new JLabel("Statistics Menu");
 	
 	public StatisticsMenu() {
 		setVisible(false);

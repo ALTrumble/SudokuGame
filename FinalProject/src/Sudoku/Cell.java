@@ -37,8 +37,6 @@ public class Cell extends JPanel implements ActionListener, KeyListener, EventLi
 		setBackground(new Color(235, 235, 235));
 		setBorder(setCustomBorder((top ? 2 : 1), (left ? 2 : 1), (bottom ? 2 : 1), (right ? 2 : 1)));
 		
-		
-		
 		if (displayNum != 0) {
 			solved = true;
 		} 
@@ -84,6 +82,10 @@ public class Cell extends JPanel implements ActionListener, KeyListener, EventLi
         updateCellColors();
     }
 	
+	public boolean isSolved() {
+		return solved;
+	}
+	
 	private void toggleActiveStatus() {
         active = !active;
         if (active) {
@@ -119,6 +121,7 @@ public class Cell extends JPanel implements ActionListener, KeyListener, EventLi
                 numberLabel.setForeground(Color.BLUE);
                 updateCellColors();
                 currentlySelectedCell = null; // Deselect the cell
+                notifyListeners("CellSolved");
             } else {
                 // If the entered number is incorrect, handle it
             	numberLabel.setForeground(Color.RED);

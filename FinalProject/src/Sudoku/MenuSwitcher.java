@@ -36,77 +36,62 @@ public class MenuSwitcher implements EventListener {
 	
 	public void display() {
 		frame.setVisible(true);
-		toggleMain();
-	}
-	
-	public void toggleMain() {
-		mainMenu.setVisible(!mainMenu.isVisible());
-	}
-	
-	public void toggleDifficultySelect() {
-		difficultySelect.setVisible(!difficultySelect.isVisible());
+		mainMenu.setVisible(true);
 	}
 	
 	public void startGame(int difficulty) {
-		gameMenu.setVisible(!gameMenu.isVisible());
+		gameMenu.setVisible(true);
 		gameMenu.launchGame(difficulty);		
 	}
 	
-	public void endGame() {
-		gameMenu.setVisible(!gameMenu.isVisible());
-	}
 	
-	public void toggleGameEnd(boolean win) {
-		endGamePage.setVisible(!endGamePage.isVisible());
-		endGamePage.toggleWinLose(win);
-	}
-	
-	public void toggleStats() {
-		statsPage.setVisible(!statsPage.isVisible());
-	}
 	
 	@Override
 	public void EventOccured(String details) {
 		switch(details) {
 		
 		case "MainMenu":
-			toggleMain();
-			toggleDifficultySelect();
-			toggleGameEnd(false);
+			mainMenu.setVisible(true);
+			difficultySelect.setVisible(false);
+			endGamePage.setVisible(false);
+			statsPage.setVisible(false);
 			break;
 		
 		case "EasyGame":
-			toggleDifficultySelect();
+			difficultySelect.setVisible(false);
 			startGame(0);
 			break;
 			
 		case "MediumGame":
-            toggleDifficultySelect();
+			difficultySelect.setVisible(false);
             startGame(1);
             break;
             
 		case "HardGame":
-            toggleDifficultySelect();
+			difficultySelect.setVisible(false);
             startGame(2);
             break;
             
 		case "DifficultySelect":
-			toggleDifficultySelect();
-			toggleMain();
+			difficultySelect.setVisible(true);
+			mainMenu.setVisible(false);
 			break;
 			
 		case "GameLost":
-			endGame();
-			toggleGameEnd(false);
+			gameMenu.setVisible(false);
+			endGamePage.setVisible(true);
+			endGamePage.toggleWinLose(false);
 			break;
 			
 		case "GameWon":
-			endGame();
-			toggleGameEnd(true);	
-		
+			gameMenu.setVisible(false);
+			endGamePage.setVisible(true);
+			endGamePage.toggleWinLose(true);	
+			break;
+			
 		case "StatisticsMenu":
-			toggleStats();
-			toggleMain();
+			statsPage.setVisible(true);
+			mainMenu.setVisible(false);
 			break;
 			
 		default:

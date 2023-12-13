@@ -57,6 +57,7 @@ public class GameMenu extends JPanel implements EventListener {
 	@Override
 	public void EventOccured(String details) {
 		if (details == "GameWon") {
+			stopwatch.stop();
 			notifyListeners("GameWon");
 		} else if (details == "GameLost") {
 			stopwatch.stop();
