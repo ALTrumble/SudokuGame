@@ -1,6 +1,5 @@
 package Sudoku;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 
@@ -13,6 +12,12 @@ public class GameMenu extends JPanel implements EventListener {
 	
 	private Stopwatch stopwatch = new Stopwatch();
 	private MistakeCounter mistakes = new MistakeCounter();
+	
+	private int mistakesMade = 0;
+	private int cellsSolved = 0;
+	private int cellsUnsolved = 0;
+	
+	String time;
 	
 	public GameMenu() {
 		setVisible(false);
@@ -29,8 +34,8 @@ public class GameMenu extends JPanel implements EventListener {
 		board.addEventListener(this);
 		
 		mistakes.setBounds(55, 0, 300, 50);
-		
 		stopwatch.setBounds(450, 0, 300, 50);
+		
 		stopwatch.start();
 		add(stopwatch);
 		add(mistakes);
@@ -54,16 +59,48 @@ public class GameMenu extends JPanel implements EventListener {
     	}
     }
 	
+    public int[] getStats() {
+    	int[] stats = {mistakesMade, cellsSolved, cellsUnsolved};
+    	return stats;
+    }
+    
+    public String getElapsedTime() {
+    	return time;
+    }
+    
 	@Override
 	public void EventOccured(String details) {
 		if (details == "GameWon") {
 			stopwatch.stop();
+			
+			time = stopwatch.getTime();
+			
+			mistakesMade = board.getMistakes();
+			cellsSolved = board.getSolved();
+			cellsUnsolved = board.getUnsolved();
+			
 			notifyListeners("GameWon");
 		} else if (details == "GameLost") {
 			stopwatch.stop();
+			
+			time = stopwatch.getTime();
+			
+			mistakesMade = board.getMistakes();
+			cellsSolved = board.getSolved();
+			cellsUnsolved = board.getUnsolved();
+			
+			if (cellsSolved > cellsUnsolved) {
+				cellsSolved = cellsUnsolved;
+			}
+			
 			notifyListeners("GameLost");
 		} else if (details == "Mistake") {
 			mistakes.mistake(); 
+			
+			mistakesMade = board.getMistakes();
+			cellsSolved = board.getSolved();
+			cellsUnsolved = board.getUnsolved();
+			
 		}
 		
 	}

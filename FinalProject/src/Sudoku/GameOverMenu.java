@@ -18,7 +18,12 @@ public class GameOverMenu extends JPanel implements EventListener{
 	JPanel buttonPanel = new JPanel();
 	
 	JButton mainButton = new JButton("Return to Main Menu");
-	JButton restartButton = new JButton("New Game");
+	JButton exitButton = new JButton("Quit");
+	
+	JLabel mistakesLabel = new JLabel("Mistakes Made: 0/3");
+	JLabel cellsSolved = new JLabel("Cells solved: 0/0");
+	
+	JLabel timeElapsedLabel = new JLabel("Time Elapsed: 00:00:00");
 	
 	GameOverMenu() {
 		setVisible(false);
@@ -33,6 +38,18 @@ public class GameOverMenu extends JPanel implements EventListener{
 		mainButton.setForeground(Color.white);
 		mainButton.setUI(new StyledButtonUI());
 		
+		mistakesLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		mistakesLabel.setHorizontalAlignment(JLabel.CENTER);
+		add(mistakesLabel, BorderLayout.EAST);
+		
+		cellsSolved.setFont(new Font("Arial", Font.BOLD, 20));
+		cellsSolved.setHorizontalAlignment(JLabel.CENTER);
+		add(cellsSolved, BorderLayout.WEST);
+		
+		timeElapsedLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		timeElapsedLabel.setHorizontalAlignment(JLabel.CENTER);
+		add(timeElapsedLabel, BorderLayout.SOUTH);
+		
 		mainButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -40,32 +57,51 @@ public class GameOverMenu extends JPanel implements EventListener{
 			}
 		});
 		
-		restartButton.setBackground(new Color(0x2dce98));
-		restartButton.setForeground(Color.white);
-		restartButton.setUI(new StyledButtonUI());
+		exitButton.setBackground(new Color(0x2dce98));
+		exitButton.setForeground(Color.white);
+		exitButton.setUI(new StyledButtonUI());
 		
-		restartButton.addActionListener(new ActionListener() {
+		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				notifyListeners("GameRestarted");
+				System.exit(0);
 			}
 		});
 		
 		
 		buttonPanel.setLayout(new FlowLayout());
 		buttonPanel.add(mainButton);
-		buttonPanel.add(restartButton);
+		buttonPanel.add(exitButton);
 		add(buttonPanel, BorderLayout.CENTER);
 		
 		
 	}
 	
 	
-	public void toggleWinLose(boolean win) {
+	public void toggleWinLose(boolean win, int[] stats, String time) {
+		
+		int mistakes = stats[0];
+		int solved = stats[1];
+		int unsolved = stats[2];
+		
 		if (win) {
+			titleLabel.setText("Congratulations!");
+			mistakesLabel.setText("Mistakes Made: " + mistakes + "/3");
+			cellsSolved.setText("Cells Solved: " + solved + "/" + unsolved);
 			
+			timeElapsedLabel.setText("Time Elapsed: " + time);
+			
+			revalidate();
+			repaint();
 		} else {
-			// TODO win lose menu
+			titleLabel.setText("Game Over!");
+			mistakesLabel.setText("Mistakes Made: " + mistakes + "/3");
+			cellsSolved.setText("Cells Solved: " + solved + "/" + unsolved);
+			
+			timeElapsedLabel.setText("Time Elapsed: " + time);
+			
+			revalidate();
+			repaint();
 		}
 	}
 	

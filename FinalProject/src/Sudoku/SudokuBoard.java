@@ -17,6 +17,8 @@ public class SudokuBoard extends JPanel implements EventListener {
 	int[] solvableBoard[];
 	
 	private int mistakes = 0;
+	private int cellsSolved;
+	private static int cellsRemoved;
 	
 	private static final Random random = new Random();
 	private static final int SIZE = 9;
@@ -25,9 +27,6 @@ public class SudokuBoard extends JPanel implements EventListener {
 		
 		setSize(600, 600);
 		setLayout(new GridLayout(9, 9));
-		
-		//solutionBoard = new int[SIZE][SIZE];
-		//solvableBoard = new int[SIZE][SIZE];
 		
 	}
 	
@@ -79,6 +78,14 @@ public class SudokuBoard extends JPanel implements EventListener {
 	
 	public int getMistakes() {
 		return mistakes;
+	}
+	
+	public int getSolved() {
+		return cellsSolved;
+	}
+	
+	public int getUnsolved() {
+		return cellsRemoved;
 	}
 	
 	public void addEventListener(EventListener listener) {
@@ -148,7 +155,7 @@ public class SudokuBoard extends JPanel implements EventListener {
 
     private static int[][] createPuzzle(int[][] board, int difficulty) {
         int cellsToRemove = 44 + (difficulty * 6);
-        
+        cellsRemoved = cellsToRemove;
         while (cellsToRemove > 0) {
             int row = random.nextInt(SIZE);
             int col = random.nextInt(SIZE);
@@ -179,6 +186,7 @@ public class SudokuBoard extends JPanel implements EventListener {
 				notifyListeners("GameLost");
 			}		
 		} else if (details == "CellSolved") {
+			cellsSolved++;
 			boolean boardSolved = cells.stream().allMatch(Cell::isSolved);
 			if (boardSolved) {
 				notifyListeners("GameWon");

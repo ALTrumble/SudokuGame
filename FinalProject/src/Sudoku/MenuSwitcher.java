@@ -80,13 +80,13 @@ public class MenuSwitcher implements EventListener {
 		case "GameLost":
 			gameMenu.setVisible(false);
 			endGamePage.setVisible(true);
-			endGamePage.toggleWinLose(false);
+			endGamePage.toggleWinLose(false, gameMenu.getStats(), gameMenu.getElapsedTime());
 			break;
 			
 		case "GameWon":
 			gameMenu.setVisible(false);
 			endGamePage.setVisible(true);
-			endGamePage.toggleWinLose(true);	
+			endGamePage.toggleWinLose(true, gameMenu.getStats(), gameMenu.getElapsedTime());	
 			break;
 			
 		case "StatisticsMenu":

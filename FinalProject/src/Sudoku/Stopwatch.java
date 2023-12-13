@@ -44,6 +44,7 @@ public class Stopwatch extends JLabel {
     }
 	
 	public void start() {
+		setText("Time: 00:00");
         startTime = System.currentTimeMillis();
         timer.start();       
         
