@@ -20,7 +20,9 @@ public class StatisticsMenu extends JPanel {
 		titleLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Set font and size
         titleLabel.setHorizontalAlignment(JLabel.CENTER); // Center the text
 		
-        
+        String StatFile = "StatsMenu";
+		readingTheFile(StatFile );
+		
         // Set up layout
         setLayout(new BorderLayout()); // Use BorderLayout for better control of component placement
         
@@ -28,7 +30,7 @@ public class StatisticsMenu extends JPanel {
 	}
 	public void readingTheFile(String StatFile) {
 		try {
-		      File myObj = new File("StatsMenu.txt");
+		      File myObj = new File(StatFile);
 		      Scanner myReader = new Scanner(myObj);
 		      while (myReader.hasNextLine()) {
 		        String data = myReader.nextLine();
