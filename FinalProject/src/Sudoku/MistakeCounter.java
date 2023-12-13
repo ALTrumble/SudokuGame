@@ -22,4 +22,5 @@ public class MistakeCounter extends JLabel {
 		setText("Mistakes: " + mistakes + "/3");
 		repaint();
 	}
+	
 }
