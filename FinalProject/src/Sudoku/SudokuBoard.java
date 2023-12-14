@@ -33,6 +33,7 @@ public class SudokuBoard extends JPanel implements EventListener {
 		
 		cells.clear();
 		mistakes = 0;
+		cellsSolved = 0;
 		
 		removeAll();
 		revalidate();
