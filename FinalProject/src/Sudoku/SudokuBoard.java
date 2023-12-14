@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -33,6 +32,7 @@ public class SudokuBoard extends JPanel implements EventListener {
 	public void createBoard(int difficulty) {
 		
 		cells.clear();
+		mistakes = 0;
 		
 		removeAll();
 		revalidate();

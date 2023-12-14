@@ -23,4 +23,9 @@ public class MistakeCounter extends JLabel {
 		repaint();
 	}
 	
+	public void reset() {
+		mistakes = 0;
+		updateText();
+	}
+	
 }

@@ -24,25 +24,29 @@ public class GameMenu extends JPanel implements EventListener {
 		setSize(727, 949);
 		setLayout(null);
 		
-		
-		
-	}
-	
-	public void launchGame(int difficulty) {
-		board.createBoard(difficulty);
 		board.setBounds(55, 55, 600, 600);
 		board.addEventListener(this);
 		
 		mistakes.setBounds(55, 0, 300, 50);
 		stopwatch.setBounds(450, 0, 300, 50);
 		
-		stopwatch.start();
+		
 		add(stopwatch);
 		add(mistakes);
 		add(board);
 		
 		validate();
 		repaint();
+		
+	}
+	
+	public void launchGame(int difficulty) {
+		mistakes.reset();
+		board.createBoard(difficulty);
+		stopwatch.start();
+		validate();
+		repaint();
+		
 	}
 	
 	public SudokuBoard getBoard() {

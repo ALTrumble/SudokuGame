@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class DifficultyMenu extends JPanel implements EventListener {
+public class DifficultyMenu extends JPanel {
 
     private ArrayList<EventListener> listeners = new ArrayList<>();
 
@@ -80,11 +80,6 @@ public class DifficultyMenu extends JPanel implements EventListener {
         for (EventListener listener : listeners) {
             listener.EventOccured(info);
         }
-    }
-
-    @Override
-    public void EventOccured(String details) {
-        // TODO Auto-generated method stub
     }
 }
 

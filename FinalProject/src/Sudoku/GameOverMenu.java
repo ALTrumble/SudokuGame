@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class GameOverMenu extends JPanel implements EventListener {
+public class GameOverMenu extends JPanel {
 
     private ArrayList<EventListener> listeners = new ArrayList<>();
 
@@ -101,10 +101,5 @@ public class GameOverMenu extends JPanel implements EventListener {
         for (EventListener listener : listeners) {
             listener.EventOccured(info);
         }
-    }
-
-    @Override
-    public void EventOccured(String details) {
-        // TODO Auto-generated method stub
     }
 }
